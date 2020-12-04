@@ -1,0 +1,27 @@
+sudo: required
+language: python
+os: linux
+jobs:
+  include:
+        - dist: bionic
+          python: '3.6'
+        - dist: focal
+          python: '3.8'
+# cache:
+#     - pip3
+# blocklist
+# branches:
+#     except:
+#         - broken
+before_install:
+    - sudo apt -qq update
+install:
+    - sudo apt install -y python3-venv python3-pip python-is-python3 curl
+    - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
+    - source $HOME/.poetry/env
+    - poetry install
+script:
+    - poetry run coverage run --source=microlib -m pytest -vv
+after_success:
+    - poetry run coveralls
+    - coveralls

@@ -1,11 +1,12 @@
-sudo: required
 language: python
 os: linux
 jobs:
   include:
-        - dist: bionic
+        - os: linux
+          dist: bionic
           python: '3.6'
-        - dist: focal
+        - os: linux
+          dist: focal
           python: '3.8'
 # cache:
 #     - pip3

@@ -5,7 +5,8 @@ description = ""
 authors = ["Nicolas Hainaux <nh.techn@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.6"
+importlib-metadata = { version = "^3.1", python = "3.6.* || 3.7.*" }
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

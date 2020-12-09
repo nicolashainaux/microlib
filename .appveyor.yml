@@ -1,0 +1,51 @@
+version: build{build}
+
+max_jobs: 1
+
+environment:
+  matrix:
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      PYTHON36: "C:\\Python36-x64\\python.exe"
+      PYTHON37: "C:\\Python37-x64\\python.exe"
+      PYTHON38: "C:\\Python38-x64\\python.exe"
+
+install:
+  - cmd: set PYTHONIOENCODING=utf-8
+  - cmd: set PY_PYTHON=3.8
+  - cmd: set PATH=C:\\Python38-x64\\;C:\\Python38-x64\\Scripts;%USERPROFILE%\\.poetry\\bin;%PATH%
+  - cmd: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | %PYTHON38%
+  - cmd: python --version
+  - cmd: python -c "import sys; print(sys.platform); print(sys.version_info)"
+  - cmd: python -m venv py38
+  - cmd: .\py38\Scripts\activate.bat
+  - cmd: poetry install
+  - cmd: deactivate
+  - cmd: %PYTHON37% -m venv py37
+  - cmd: .\py37\Scripts\activate.bat
+  - cmd: poetry install
+  - cmd: deactivate
+  - cmd: %PYTHON36% -m venv py36
+  - cmd: .\py36\Scripts\activate.bat
+  - cmd: poetry install
+  - cmd: deactivate
+
+build: off
+
+test_script:
+  - cmd: .\py38\Scripts\activate.bat
+  - cmd: pytest
+  - cmd: deactivate
+  - cmd: .\py37\Scripts\activate.bat
+  - cmd: pytest
+  - cmd: deactivate
+  - cmd: .\py36\Scripts\activate.bat
+  - cmd: pytest
+  - cmd: deactivate
+
+notifications:
+- provider: Email
+  to:
+  - nh.techn@gmail.com
+  on_build_success: false
+  on_build_failure: false
+  on_build_status_changed: true

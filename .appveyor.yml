@@ -20,11 +20,11 @@ install:
   - cmd: .\py38\Scripts\activate.bat
   - cmd: poetry install
   - cmd: deactivate
-  - cmd: %PYTHON37% -m venv py37
+  - cmd: "%PYTHON37%" -m venv py37
   - cmd: .\py37\Scripts\activate.bat
   - cmd: poetry install
   - cmd: deactivate
-  - cmd: %PYTHON36% -m venv py36
+  - cmd: "%PYTHON36%" -m venv py36
   - cmd: .\py36\Scripts\activate.bat
   - cmd: poetry install
   - cmd: deactivate

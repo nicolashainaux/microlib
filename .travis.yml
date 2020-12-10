@@ -17,7 +17,10 @@ jobs:
 before_install:
     - sudo apt -qq update
 install:
-    - sudo apt install -y python3-venv python3-pip python-is-python3 curl
+    - sudo apt install -y python3-venv python3-pip curl
+    - echo $TRAVIS_DIST
+    - if [ $TRAVIS_DIST = "focal" ]; then sudo apt install python-is-python3; fi
+    - if [ $TRAVIS_DIST = "bionic" ]; then alias python="python3.6"; fi
     - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
     - source $HOME/.poetry/env
     - poetry install

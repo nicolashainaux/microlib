@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "microlib"
-version = "0.1.0"
+version = "1.0.0"
 description = ""
 authors = ["Nicolas Hainaux <nh.techn@gmail.com>"]
 
@@ -16,5 +16,7 @@ coverage = "^5.3"
 coveralls = "^2.2.0"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+# requires = ["poetry-core>=1.0.0"]
+# build-backend = "poetry.core.masonry.api"
+requires = ["setuptools >= 40.6.0", "wheel"]
+build-backend = "setuptools.build_meta"

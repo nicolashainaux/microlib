@@ -1,0 +1,5 @@
+python3-microlib (1.0.0-0ubuntu1) focal; urgency=low
+
+  * Initial release
+
+ -- Nicolas Hainaux <nh.techn@gmail.com>  Fri, 11 Dec 2020 16:45:12 +0100

@@ -1,0 +1,6 @@
+coverage==5.*,>=5.3.0
+coveralls==2.*,>=2.2.0
+flake8==3.*,>=3.8.4
+importlib-metadata==3.*,>=3.1.0; python_version == "3.6.*" or python_version == "3.7.*"
+pytest==5.*,>=5.2.0
+pytest-mock==3.*,>=3.3.1

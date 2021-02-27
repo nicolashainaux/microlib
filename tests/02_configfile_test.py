@@ -22,6 +22,7 @@
 import json
 from pathlib import Path
 from io import TextIOBase
+from unittest.mock import patch
 
 import pytest
 
@@ -111,9 +112,10 @@ def test_save(mocker):
     mock_from = mocker.patch('microlib.configfile.StandardConfigFile._from')
     mock_from.return_value = data
     mock_file_object = mocker.MagicMock(spec=TextIOBase)
-    m = mocker.mock_open()
-    m.return_value = mock_file_object
+    mock_open_builtin = mocker.mock_open()
+    mock_open_builtin.return_value = mock_file_object
     mock_dump = mocker.patch('json.dump')
     cfg = StandardConfigFile('myapp')
-    cfg.save({'key2': True})
+    with patch('builtins.open', mock_open_builtin):
+        cfg.save({'key2': True})
     assert mock_dump.call_args.args[0] == updated

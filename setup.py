@@ -14,15 +14,16 @@ readme = ''
 setup(
     long_description=readme,
     name='microlib',
-    version='1.0.0',
+    version='1.1.0',
     python_requires='==3.*,>=3.6.0',
     author='Nicolas Hainaux',
     author_email='nh.techn@gmail.com',
     packages=['microlib'],
     package_dir={"": "."},
-    package_data={},
+    package_data={"microlib": ["data/*.json", "data/*.toml", "meta/*.toml"]},
     install_requires=[
-        'importlib-metadata==3.*,>=3.1.0; python_version == "3.6.*" or python_version == "3.7.*"'
+        'importlib-metadata==3.*,>=3.1.0; python_version == "3.6.*" or python_version == "3.7.*"',
+        'toml==0.*,>=0.10.2'
     ],
     extras_require={
         "dev": [

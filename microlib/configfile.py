@@ -17,11 +17,10 @@
 # along with Microlib; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-import os
 import json
+import shutil
 from os import environ
 from pathlib import Path
-from shutil import copyfile
 
 import toml
 
@@ -85,7 +84,8 @@ class StandardConfigFile():
         self._firstrun_dialog = firstrun_dialog
         if default_config_dir is None:
             self._default_config_file = \
-                Path(__file__) / f'data/empty_default_config.{fileformat}'
+                Path(__file__).parent \
+                / f'data/empty_default_config.{fileformat}'
         else:
             self._default_config_file = \
                 Path(default_config_dir) / f'{filename}.{fileformat}'
@@ -95,7 +95,7 @@ class StandardConfigFile():
         self._user_config_file = self._configdir / f'{filename}.{fileformat}'
 
     @property
-    def path(self):
+    def fullpath(self):
         """Full path to user config file (as Path object from pathlib)."""
         return self._user_config_file
 
@@ -103,16 +103,16 @@ class StandardConfigFile():
         return {}
 
     def _create_user_config_file(self):
-        if not os.path.isdir(self._configdir):
-            os.mkdirs(self._configdir, exist_ok=True)
-        copyfile(self._default_config_file, self._user_config_file)
+        if not self._configdir.exists():
+            self._configdir.mkdir(parents=True)
+        shutil.copyfile(self._default_config_file, self._user_config_file)
 
     def _from(self, filename, ioerror_handling=None):
         data = XDict()
         try:
             with open(filename) as f:
                 data = XDict(self._fmt.load(f))
-        except (IOError, FileNotFoundError):
+        except FileNotFoundError:
             if ioerror_handling == 'firstrun_dialog':
                 self._create_user_config_file()
                 data = XDict(self._firstrun_dialog())

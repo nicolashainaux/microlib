@@ -27,7 +27,7 @@ from .xdict import XDict
 from .tools import rotate, grouper
 from .configfile import StandardConfigFile
 
-with open(Path(__file__).parent.parent / 'pyproject.toml', 'r') as f:
+with open(Path(__file__).parent / 'meta/pyproject.toml', 'r') as f:
     __version__ = toml.load(f)['tool']['poetry']['version']
 
 __all__ = [terminal, XDict, rotate, grouper, StandardConfigFile]

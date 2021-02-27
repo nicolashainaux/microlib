@@ -118,5 +118,5 @@ def test_save(mocker):
     cfg = StandardConfigFile('myapp')
     with patch('builtins.open', mock_open_builtin):
         cfg.save({'key2': True})
-    # assert mock_dump.call_args.args[0] == updated
-    assert mock_dump.call_args is None
+    args, kwargs = mock_dump.call_args
+    assert args[0] == updated

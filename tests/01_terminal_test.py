@@ -22,6 +22,8 @@
 from unittest.mock import patch
 from collections import namedtuple
 
+import pytest
+
 from microlib import terminal
 
 
@@ -107,3 +109,23 @@ def test_tabulate():
         " id | col1 |   col2  \n"\
         "----+------+---------\n"\
         "  1 |      | arrivée "
+
+
+def test_echo_info(capsys):
+    terminal.echo_info('Hello world!')
+    captured = capsys.readouterr()
+    assert captured.out == 'Info: Hello world!\n'
+
+
+def test_echo_warning(capsys):
+    terminal.echo_warning('Pay attention, please!')
+    captured = capsys.readouterr()
+    assert captured.out == 'Warning: Pay attention, please!\n'
+
+
+def test_echo_error(capsys):
+    with pytest.raises(SystemExit) as excinfo:
+        terminal.echo_error('Everything\'s wrong!')
+    assert str(excinfo.value) == '1'
+    captured = capsys.readouterr()
+    assert captured.out == 'Error: Everything\'s wrong!\n'

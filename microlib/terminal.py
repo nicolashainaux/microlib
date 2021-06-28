@@ -23,6 +23,9 @@ import shutil
 from textwrap import wrap
 from itertools import zip_longest
 
+import click
+import blessed
+
 from .prefs import TERMINAL_SIZE_FALLBACK
 
 
@@ -121,3 +124,19 @@ def tabulate(rows, vsep=None, hsep=None, isep=None):
                                   for (text, width) in zip(r, widths)]))
     table = [headers, ruler, *content]
     return '\n'.join(table)
+
+
+def echo_info(s):
+    term = blessed.Terminal()
+    click.echo(term.lightskyblue('Info: ') + str(s))
+
+
+def echo_warning(s):
+    term = blessed.Terminal()
+    click.echo(term.darkorange('Warning: ') + str(s))
+
+
+def echo_error(s):
+    term = blessed.Terminal()
+    click.echo(term.color_rgb(197, 0, 11) + 'Error: ' + term.normal + str(s))
+    exit(1)

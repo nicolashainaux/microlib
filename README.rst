@@ -7,6 +7,8 @@ Microlib contains some useful functions or classes:
 - StandardConfigFile helps to manage user config files,
 - terminal.ask_yes_no() to ask a [y/N] question to the user for cli tools,
 - terminal.tabulate() is a very simple function to display tabulated data in the terminal,
+- terminal.echo_info() echo_warning() and echo_error() display info, warning and error messages with some color.
 - rotate() and grouper() help to handle iterators.
+- read_text() reads text files and concatenates their contents.
 
 `Source code <https://gitlab.com/nicolas.hainaux/microlib>`__

@@ -1,6 +1,6 @@
 Source: python3-microlib
 Maintainer: Nicolas Hainaux <nh.techn@gmail.com>
-Build-Depends: debhelper, dh-python, python3-all, python3-setuptools, python3-docutils, python3-pytest, python3-coverage, python3-pytest-mock, python3-toml
+Build-Depends: debhelper, dh-python, python3-all, python3-setuptools, python3-docutils, python3-pytest, python3-coverage, python3-pytest-mock, python3-toml, python3-pyfakefs
 Section: devel
 Priority: optional
 Standards-Version: 4.5.0
@@ -11,4 +11,4 @@ Architecture: all
 Section: devel
 Priority: optional
 Description: Microlib is a small collection of useful tools.
-Depends: ${python3:Depends}
+Depends: ${python3:Depends}, python3-click, python3-blessed

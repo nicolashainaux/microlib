@@ -19,7 +19,7 @@
 # along with Microlib; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-from microlib import rotate, grouper
+from microlib import rotate, grouper, read_text
 
 
 def test_rotate():
@@ -33,3 +33,9 @@ def test_grouper():
         == [('a', 'b', 'c'), ('d', 'e', 'f'), ('g', 'x', 'x')]
     assert list(grouper('abcdefg', 4)) \
         == [('a', 'b', 'c', 'd'), ('e', 'f', 'g', None)]
+
+
+def test_read_text(fs):
+    fs.create_file('file1.txt', contents='ABC')
+    fs.create_file('file2.txt', contents='DEF')
+    assert read_text('file1.txt', 'file2.txt') == 'ABC\nDEF'

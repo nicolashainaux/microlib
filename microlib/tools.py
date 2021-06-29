@@ -33,3 +33,18 @@ def grouper(iterable, n, padvalue=None):
     """
     # Taken from https://stackoverflow.com/a/312644/3926735
     return zip_longest(*[iter(iterable)] * n, fillvalue=padvalue)
+
+
+def read_text(*filenames, **kwargs):
+    """
+    Read and concatenate text from provided files.
+
+    Encoding and separator can be provided as 'encoding' and 'sep' kwargs.
+    """
+    encoding = kwargs.get('encoding', 'utf-8')
+    sep = kwargs.get('sep', '\n')
+    buf = []
+    for filename in filenames:
+        with open(filename, encoding=encoding) as f:
+            buf.append(f.read())
+    return sep.join(buf)

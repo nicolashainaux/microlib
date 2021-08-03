@@ -3,6 +3,7 @@ name = "microlib"
 version = "1.2.1"
 description = ""
 authors = ["Nicolas Hainaux <nh.techn@gmail.com>"]
+readme = 'README.rst'
 
 [tool.poetry.dependencies]
 python = "^3.6"

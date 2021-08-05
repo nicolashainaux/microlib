@@ -3,6 +3,7 @@ name = "microlib"
 version = "1.2.1"
 description = ""
 authors = ["Nicolas Hainaux <nh.techn@gmail.com>"]
+readme = 'README.rst'
 
 [tool.poetry.dependencies]
 python = "^3.6"
@@ -10,6 +11,7 @@ importlib-metadata = { version = "^3.1", python = "3.6.* || 3.7.*" }
 toml = "^0.10.2"
 click = "^8.0.1"
 blessed = "^1.18.1"
+intspan = "^1.6.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

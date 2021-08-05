@@ -10,5 +10,6 @@ Microlib contains some useful functions or classes:
 - terminal.echo_info() echo_warning() and echo_error() display info, warning and error messages with some color.
 - rotate() and grouper() help to handle iterators.
 - read_text() reads text files and concatenates their contents.
+- database offers a ContextManager for sqlite3 database, an Operator and a Ts_Operator classes to provide shortcuts for common sqlite3 commands.
 
 `Source code <https://gitlab.com/nicolas.hainaux/microlib>`__

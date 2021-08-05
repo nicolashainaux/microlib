@@ -61,7 +61,7 @@ class ContextManager:
         self.testing = testing
 
     def __enter__(self):
-        self.conn = sqlite3.connect(self.path)
+        self.conn = sqlite3.connect(str(self.path))
         self.cursor = self.conn.cursor()
         if self.testing:
             self.cursor.execute('SAVEPOINT starttest;')

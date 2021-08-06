@@ -3,7 +3,7 @@ ubuntu_focal_task:
     image: ubuntu:focal
 
   env:
-    PATH: /usr/local/bin:${PATH}
+    PATH: /usr/local/bin:$HOME/.poetry/bin:${PATH}
 
   install_script:
     - apt -qq update
@@ -23,7 +23,8 @@ ubuntu_bionic_task:
     image: ubuntu:bionic
 
   env:
-    PATH: /usr/local/bin:${PATH}
+    PATH: /usr/local/bin:$HOME/.poetry/bin:${PATH}
+    PYTHONIOENCODING: utf-8
 
   install_script:
     - apt -qq update

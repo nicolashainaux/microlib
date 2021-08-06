@@ -6,8 +6,8 @@ ubuntu_focal_task:
     PATH: /usr/local/bin:${PATH}
 
   install_script:
-    - sudo apt -qq update
-    - sudo apt install -y python3-venv python3-pip curl python-is-python3
+    - apt -qq update
+    - apt install -y python3-venv python3-pip curl python-is-python3
     - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
     - source $HOME/.poetry/env
     - poetry install
@@ -26,8 +26,8 @@ ubuntu_bionic_task:
     PATH: /usr/local/bin:${PATH}
 
   install_script:
-    - sudo apt -qq update
-    - sudo apt install -y python3-venv python3-pip curl
+    - apt -qq update
+    - apt install -y python3-venv python3-pip curl
     - alias python="python3.6"
     - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
     - source $HOME/.poetry/env

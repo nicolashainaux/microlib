@@ -17,3 +17,24 @@ ubuntu_focal_task:
     - poetry run coverage run --source=microlib -m pytest -vv
     # - poetry run coveralls
     # - coveralls
+
+ubuntu_bionic_task:
+  container:
+    image: ubuntu:bionic
+
+  env:
+    PATH: /usr/local/bin:${PATH}
+
+  install_script:
+    - sudo apt -qq update
+    - sudo apt install -y python3-venv python3-pip curl
+    - alias python="python3.6"
+    - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
+    - source $HOME/.poetry/env
+    - poetry install
+  # script:
+  #   - ./build.sh
+  test_script:
+    - poetry run coverage run --source=microlib -m pytest -vv
+    # - poetry run coveralls
+    # - coveralls

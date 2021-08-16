@@ -2,7 +2,7 @@ freebsd_instance:
   image_family: freebsd-12-2
 
 env:
-  HOME: /home/username/
+  HOME: /home/username
   PATH: /.local/bin:/usr/local/bin:$HOME/.poetry/bin:${PATH}
 
 task:

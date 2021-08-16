@@ -14,7 +14,7 @@ task:
     - pip-3.8 install pyfakefs
     - pwd
     - echo $PATH
-    - poetry --version
-    - poetry install
+    - /home/username/.local/bin/poetry --version
+    - /home/username/.local/bin/poetry install
   test_script:
-    - poetry run coverage run --source=microlib -m pytest -vv
+    - /home/username/.local/bin/poetry run coverage run --source=microlib -m pytest -vv

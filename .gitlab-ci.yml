@@ -1,0 +1,38 @@
+stages:          # List of stages for jobs, and their order of execution
+  - install
+  - test
+
+variables:
+  PATH: /usr/local/bin:$HOME/.poetry/bin:${PATH}
+
+install-job1:
+  stage: install
+  image: ubuntu:focal
+  script:
+    - apt -qq update
+    - apt install -y python3-venv python3-pip curl python-is-python3
+    - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
+    - source $HOME/.poetry/env
+    - poetry install
+
+install-job2:
+  stage: install
+  image: ubuntu:bionic
+  variables:
+    PYTHONIOENCODING: utf-8
+  script:
+    - apt -qq update
+    - apt install -y python3-venv python3-pip curl
+    - alias python="python3.6"
+    - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
+    - source $HOME/.poetry/env
+    - poetry install
+
+test-job:
+  stage: test
+  script:
+    - poetry run coverage run --source=microlib -m pytest -vv
+    # - poetry run coveralls
+    # - coveralls
+
+# merge_test:   stage: test   script: make test-coveralls   only:   - merge_requests

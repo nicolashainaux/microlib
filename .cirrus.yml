@@ -6,12 +6,12 @@ env:
 
 task:
   install_script:
-      - pkg upgrade -y
-      - pkg install -y curl bash python3 py38-pip py38-virtualenv py38-docutils py38-sqlite3 py38-pytest py38-coverage py38-pytest-mock py38-toml py38-click py38-blessed py38-intspan
-      - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3.8 -
-      - bash
-      - poetry install pyfakefs
-      - source $HOME/.poetry/env
-      - poetry install
+    - pkg upgrade -y
+    - pkg install -y curl bash python3 py38-pip py38-virtualenv py38-docutils py38-sqlite3 py38-pytest py38-coverage py38-pytest-mock py38-toml py38-click py38-blessed py38-intspan
+    - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3.8 -
+    - bash
+    - pip-3.8 install pyfakefs
+    - source $HOME/.poetry/env
+    - poetry install
   test_script:
     - poetry run coverage run --source=microlib -m pytest -vv

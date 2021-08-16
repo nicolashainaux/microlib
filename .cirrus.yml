@@ -1,41 +1,13 @@
-ubuntu_focal_task:
-  container:
-    image: ubuntu:focal
+freebsd_instance:
+  image_family: freebsd-12-2
 
-  env:
-    PATH: /usr/local/bin:$HOME/.poetry/bin:${PATH}
-
+task:
   install_script:
-    - apt -qq update
-    - apt install -y python3-venv python3-pip curl python-is-python3
-    - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
-    - source $HOME/.poetry/env
-    - poetry install
-  # script:
-  #   - ./build.sh
+      - pkg upgrade -y
+      - pkg install -y curl python3 py38-sqlite3 py38-pytest py38-coverage py38-pytest-mock py38-toml py38-click py38-blessed py38-intspan
+      - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3.8
+      - poetry install pyfakefs
+      - . $HOME/.poetry/env
+      - poetry install
   test_script:
     - poetry run coverage run --source=microlib -m pytest -vv
-    # - poetry run coveralls
-    # - coveralls
-
-ubuntu_bionic_task:
-  container:
-    image: ubuntu:bionic
-
-  env:
-    PATH: /usr/local/bin:$HOME/.poetry/bin:${PATH}
-    PYTHONIOENCODING: utf-8
-
-  install_script:
-    - apt -qq update
-    - apt install -y python3-venv python3-pip curl
-    - alias python="python3.6"
-    - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3
-    - source $HOME/.poetry/env
-    - poetry install
-  # script:
-  #   - ./build.sh
-  test_script:
-    - poetry run coverage run --source=microlib -m pytest -vv
-    # - poetry run coveralls
-    # - coveralls

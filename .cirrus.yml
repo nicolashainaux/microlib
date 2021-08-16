@@ -2,10 +2,12 @@ freebsd_instance:
   image_family: freebsd-12-2
 
 env:
+  HOME: /home/username/
   PATH: /.local/bin:/usr/local/bin:$HOME/.poetry/bin:${PATH}
 
 task:
   install_script:
+    - mkdir -p $HOME
     - pkg upgrade -y
     - pkg install -y curl bash python3 py38-pip py38-virtualenv py38-docutils py38-sqlite3 py38-pytest py38-coverage py38-pytest-mock py38-toml py38-click py38-blessed py38-intspan
     - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3.8 -

@@ -2,37 +2,53 @@ stages:          # List of stages for jobs, and their order of execution
   - install
   - test
 
-# variables:
-#   PATH: /usr/local/bin:$HOME/.local/bin:${PATH}
+variables:
+  POETRY: $HOME/.local/bin/poetry
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
 
-install-job1:
+install:focal:
   stage: install
   image: ubuntu:focal
+  artifacts:
+      paths:
+        - .cache/pip
+        - venv/
+        - $HOME/.local/bin
   script:
     - apt -qq update
     - apt install -y python3-venv python3-pip curl python-is-python3
+    - pip3 install coveralls
     - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
-    # - source $HOME/.poetry/env
-    - $HOME/.local/bin/poetry install
+    - $POETRY install
 
-install-job2:
+install:bionic:
   stage: install
   image: ubuntu:bionic
   variables:
     PYTHONIOENCODING: utf-8
+  artifacts:
+      paths:
+        - .cache/pip
+        - venv/
+        - $HOME/.local/bin
   script:
     - apt -qq update
     - apt install -y python3-venv python3-pip curl
     - alias python="python3.6"
     - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
-    # - source $HOME/.poetry/env
-    - $HOME/.local/bin/poetry install
+    - $POETRY install
 
-test-job:
-  stage: test
-  script:
-    - $HOME/.local/bin/poetry run coverage run --source=microlib -m pytest -vv
-    # - poetry run coveralls
+test:focal:
+    stage: test
+    dependencies: install:focal
+    script:
+      - $POETRY run coverage run --source=microlib -m pytest -vv
+    # - $POETRY run coveralls
     # - coveralls
-
 # merge_test:   stage: test   script: make test-coveralls   only:   - merge_requests
+
+test:bionic:
+    stage: test
+    dependencies: install:bionic
+    script:
+      - $POETRY run pytest -vv

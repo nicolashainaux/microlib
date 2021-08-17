@@ -3,7 +3,7 @@ stages:          # List of stages for jobs, and their order of execution
   - test
 
 variables:
-  POETRY: $HOME/.local/bin/poetry
+  POETRY: /root/.local/bin/poetry
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
 
 install:focal:
@@ -13,7 +13,7 @@ install:focal:
       paths:
         - .cache/pip
         - venv/
-        - $HOME/.local/bin
+        - /root/.local/bin
   script:
     - apt -qq update
     - apt install -y python3-venv python3-pip curl python-is-python3
@@ -30,7 +30,7 @@ install:bionic:
       paths:
         - .cache/pip
         - venv/
-        - $HOME/.local/bin
+        - /root/.local/bin
   script:
     - apt -qq update
     - apt install -y python3-venv python3-pip curl

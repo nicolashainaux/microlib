@@ -40,7 +40,8 @@ install:bionic:
 
 test:focal:
     stage: test
-    dependencies: install:focal
+    dependencies:
+      - install:focal
     script:
       - $POETRY run coverage run --source=microlib -m pytest -vv
     # - $POETRY run coveralls
@@ -49,6 +50,7 @@ test:focal:
 
 test:bionic:
     stage: test
-    dependencies: install:bionic
+    dependencies:
+      - install:bionic
     script:
       - $POETRY run pytest -vv

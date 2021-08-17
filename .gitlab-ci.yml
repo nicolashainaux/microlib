@@ -2,7 +2,7 @@ stages:          # List of stages for jobs, and their order of execution
   - build
 
 variables:
-  POETRY: $HOME/.local/bin/poetry
+  POETRY: /root/.local/bin/poetry
 
 default:
   before_script:

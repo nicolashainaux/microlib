@@ -20,7 +20,6 @@ build:focal:
         - .cache/pip
         - .cache/pypoetry
         - $CI_PROJECT_DIR
-      files:
         - /root/.local/bin/poetry
   script:
     - apt install python-is-python3
@@ -50,7 +49,6 @@ build:bionic:
       paths:
         - .cache/pip
         - .cache/pypoetry
-      files:
         - /root/.local/bin/poetry
   variables:
     PYTHONIOENCODING: utf-8

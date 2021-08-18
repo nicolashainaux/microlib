@@ -5,6 +5,7 @@ stages:          # List of stages for jobs, and their order of execution
 variables:
   POETRY: /root/.local/bin/poetry
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  POETRY_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pypoetry"
 
 default:
   before_script:
@@ -17,7 +18,10 @@ build:focal:
   artifacts:
       paths:
         - .cache/pip
+        - .cache/pypoetry
         - $CI_PROJECT_DIR
+      files:
+        - /root/.local/bin/poetry
   script:
     - apt install python-is-python3
     - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
@@ -35,8 +39,6 @@ test:focal:
         - pwd
         - coveralls
         - coveralls debug
-    only:
-        - merge_requests
 
     # - $POETRY run coveralls
 # merge_test:   stage: test   script: make test-coveralls   only:   - merge_requests
@@ -47,6 +49,9 @@ build:bionic:
   artifacts:
       paths:
         - .cache/pip
+        - .cache/pypoetry
+      files:
+        - /root/.local/bin/poetry
   variables:
     PYTHONIOENCODING: utf-8
   script:

@@ -11,7 +11,7 @@ variables:
 default:
   before_script:
     - apt -qq update
-    - apt install -y python3-venv python3-pip curl
+    - apt install -y git python3-venv python3-pip curl
 
 build:focal:
   stage: build
@@ -26,6 +26,8 @@ build:focal:
     - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
     - $POETRY install
     - $POETRY run coverage run --source=microlib -m pytest -vv
+    - pwd
+    - ls -alh
     - coveralls
 
 build:bionic:

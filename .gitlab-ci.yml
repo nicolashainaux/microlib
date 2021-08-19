@@ -27,6 +27,8 @@ build:focal:
     - $POETRY install
     - $POETRY run coverage run --source=microlib -m pytest -vv
     - coveralls
+    - echo $CI_PROJECT_DIR
+    - ls -alh $CI_PROJECT_DIR
 
 build:bionic:
   stage: build

@@ -1,12 +1,8 @@
 stages:          # List of stages for jobs, and their order of execution
   - build
-  - test
-  - report
 
 variables:
-  POETRY: .local/bin/poetry
-  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-  POETRY_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pypoetry"
+  POETRY: /root/.local/bin/poetry
 
 default:
   before_script:
@@ -16,68 +12,21 @@ default:
 build:focal:
   stage: build
   image: ubuntu:focal
-  artifacts:
-      paths:
-        - .local/bin
-        - .cache/pip
-        - .cache/pypoetry
-        - $CI_PROJECT_DIR
   script:
     - apt install python-is-python3
+    - pip3 install coveralls
     - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
-    - mkdir -p .local/bin; cp /root/.local/bin/poetry .local/bin/
     - $POETRY install
-
-test:focal:
-    stage: test
-    image: ubuntu:focal
-    artifacts:
-      paths:
-        - .local/bin
-        - .cache/pip
-        - .cache/pypoetry
-        - $CI_PROJECT_DIR
-    dependencies:
-        - build:focal
-    script:
-        - $POETRY run coverage run --source=microlib -m pytest -vv
-
-report:focal:
-    stage: report
-    image: ubuntu:focal
-    dependencies:
-        - test:focal
-    script:
-        - pip3 install coveralls
-        - coveralls
-
-    # - $POETRY run coveralls
+    - $POETRY run coverage run --source=microlib -m pytest -vv
+    - coveralls
 
 build:bionic:
   stage: build
   image: ubuntu:bionic
-  artifacts:
-      paths:
-        - .local/bin
-        - .cache/pip
-        - .cache/pypoetry
-        - $CI_PROJECT_DIR
   variables:
     PYTHONIOENCODING: utf-8
   script:
     - alias python="python3.6"
     - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
-    - mkdir -p .local/bin; cp /root/.local/bin/poetry .local/bin/
     - $POETRY install
-
-test:bionic:
-    stage: test
-    image: ubuntu:bionic
-    variables:
-      PYTHONIOENCODING: utf-8
-    dependencies:
-        - build:bionic
-    script:
-      - alias python="python3.6"
-      - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
-      - $POETRY run pytest -vv
+    - $POETRY run pytest -vv

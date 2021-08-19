@@ -1,10 +1,12 @@
 stages:          # List of stages for jobs, and their order of execution
   - build
 
+# Modifying $PATH does not work, so define $POETRY to run poetry;
+# POETRY_CACHE_DIR is "$CI_PROJECT_DIR/.cache/pypoetry"
+# PIP_CACHE_DIR: see doc (this changes the default location of pip's cache)
 variables:
   POETRY: /root/.local/bin/poetry
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-  POETRY_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pypoetry"
 
 default:
   before_script:
@@ -17,9 +19,7 @@ build:focal:
   cache:
     key: focal-build
     paths:
-      - .cache/pip
-      - .cache/pypoetry
-      - $CI_PROJECT_DIR
+      - .cache/
   script:
     - apt install python-is-python3
     - pip3 install coveralls
@@ -27,8 +27,6 @@ build:focal:
     - $POETRY install
     - $POETRY run coverage run --source=microlib -m pytest -vv
     - coveralls
-    - echo $CI_PROJECT_DIR
-    - ls -alh $CI_PROJECT_DIR
 
 build:bionic:
   stage: build
@@ -38,9 +36,7 @@ build:bionic:
   cache:
     key: bionic-build
     paths:
-      - .cache/pip
-      - .cache/pypoetry
-      - $CI_PROJECT_DIR
+      - .cache/
   script:
     - alias python="python3.6"
     - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -

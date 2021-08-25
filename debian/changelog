@@ -1,4 +1,10 @@
-python3-microlib (1.3.0-0ubuntu1) focal; urgency=low
+python3-microlib (1.4.0-0ubuntu1) focal; urgency=low
+
+  * Release version 1.4.0
+
+ -- Nicolas Hainaux <nh.techn@gmail.com>  Wed, 25 Aug 2021 17:59:00 +0200
+
+ python3-microlib (1.3.0-0ubuntu1) focal; urgency=low
 
   * Release version 1.3.0
 

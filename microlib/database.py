@@ -189,6 +189,12 @@ class Operator:
         cmd = f'SELECT COUNT(*) FROM {table_name};'
         return tuple(self._exec(table_name, cmd))[0][0]
 
+    def get_rows(self, cols, table_name, where_clause):
+        """Return selected columns whose values match the where_clause."""
+        cols = ','.join(cols)
+        cmd = f'SELECT {cols} FROM {table_name} WHERE {where_clause};'
+        return self._exec(table_name, cmd).fetchall()
+
     def get_table(self, name, include_headers=False, sort=False):
         """Return a list of all table's lines."""
         headers = []

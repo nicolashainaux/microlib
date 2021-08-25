@@ -107,6 +107,16 @@ def test_get_rows_nb():
         assert db.get_rows_nb('table1') == 4
 
 
+def test_get_rows():
+    with ContextManager(TESTDB_PATH) as cursor:
+        db = Operator(cursor)
+        assert db.get_rows(['id'], 'table2',
+                           'col1 = "break" OR col1 = "do"') == \
+            [(2, ), (3, )]
+        assert db.get_rows(['col1', 'col2'], 'table1', 'id IN (3, 4)') == \
+            [('candidus,  a, um', 'blanc'), ('sol, solis, m', 'soleil')]
+
+
 def test_get_table():
     with ContextManager(TESTDB_PATH) as cursor:
         db = Operator(cursor)

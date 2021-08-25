@@ -26,8 +26,6 @@ build:focal:
     - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
     - $POETRY install
     - $POETRY run coverage run --source=microlib -m pytest -vv
-    - pwd
-    - ls -alh
     - coveralls
 
 build:bionic:
@@ -40,7 +38,10 @@ build:bionic:
     paths:
       - .cache/
   script:
-    - alias python="python3.6"
+    - which python
+    - which python3
+    - which python3.6
+    - alias python="python3"
     - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
     - $POETRY install
     - $POETRY run pytest -vv

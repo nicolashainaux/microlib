@@ -58,6 +58,22 @@ def test_ask_yes_no(capsys):
         assert captured.out == 'Sorry, I didn\'t understand.\n'
 
 
+def test_ask_user_choice(capsys, mocker):
+    mock_getchar = mocker.patch('click.getchar')
+    mock_getchar.side_effect = ['a']
+    answer = terminal.ask_user_choice('Will you do it?', 'z', 'a')
+    assert answer == 'a'
+    mock_getchar.side_effect = ['\n']
+    answer = terminal.ask_user_choice('Will you do it?', 'd', 'a',
+                                      default='a')
+    assert answer == 'a'
+
+    mock_getchar.side_effect = ['c', 'k']
+    terminal.ask_user_choice('Will you do it?', 'k', 'a')
+    captured = capsys.readouterr()
+    assert captured.err == 'Sorry, I didn\'t understand.\n'
+
+
 def test_hcenter():
     assert terminal._hcenter('hello', 11) == '   hello   '
     assert terminal._hcenter('hello', 12) == '    hello   '

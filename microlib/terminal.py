@@ -19,6 +19,7 @@
 # along with Microlib; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+import sys
 import shutil
 from textwrap import wrap
 from itertools import zip_longest
@@ -50,6 +51,32 @@ def ask_yes_no(question, default=False):
             result = default
         if result is None:
             print('Sorry, I didn\'t understand.')
+    return result
+
+
+def ask_user_choice(question, *choices, default=None):
+    """
+    Ask the user to choose one answer among provided ones.
+    Accepted answers are provided as *choices (one char each).
+    If the user only types "enter" then either the default answer is used,
+    or if there's no default, then the question is asked again.
+    If any unaccepted answer is given, then the user is asked again.
+    """
+    result = None
+    default = default.lower() if default is not None else None
+    choices = [c.lower() for c in choices]
+    choices_list = [c.lower() if c != default else c.upper() for c in choices]
+    choices_list = f"[{'/'.join(choices_list)}]"
+    question = f'{question} {choices_list} '
+    while result is None:
+        sys.stdout.write(question)
+        answer = click.getchar(echo=True)
+        if answer.lower() in choices:
+            result = answer.lower()
+        elif answer in ['', '\n'] and default in choices:
+            result = default
+        else:
+            sys.stderr.write('Sorry, I didn\'t understand.\n')
     return result
 
 

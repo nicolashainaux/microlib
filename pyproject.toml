@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "microlib"
 version = "1.5.0"
-description = ""
+description = "Collection of various useful tools."
 authors = ["Nicolas Hainaux <nh.techn@gmail.com>"]
 readme = 'README.rst'
 

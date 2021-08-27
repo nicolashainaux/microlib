@@ -117,6 +117,14 @@ def test_get_rows():
             [('candidus,  a, um', 'blanc'), ('sol, solis, m', 'soleil')]
 
 
+def test_drop_table():
+    with ContextManager(TESTDB_PATH, testing=True) as cursor:
+        db = Operator(cursor)
+        assert db.table_exists('table2')
+        db.drop_table('table2')
+        assert not db.table_exists('table2')
+
+
 def test_get_table():
     with ContextManager(TESTDB_PATH) as cursor:
         db = Operator(cursor)

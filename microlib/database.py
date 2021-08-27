@@ -127,6 +127,10 @@ class Operator:
                 self._assert_row_exists(table_name, id_)
         return self.cursor.execute(cmd)
 
+    def drop_table(self, name):
+        """Remove a table."""
+        self._exec(name, f'DROP TABLE `{name}`;')
+
     def rename_table(self, name, new_name):
         """Change a table's name."""
         self._exec(name, f'ALTER TABLE `{name}` RENAME TO `{new_name}`;')

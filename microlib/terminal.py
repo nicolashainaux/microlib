@@ -80,6 +80,39 @@ def ask_user_choice(question, *choices, default=None):
     return result
 
 
+def ask_user(question, default=None, allowed=None):
+    """
+    Ask the user to freely give an answer to the given question.
+    If the user only types "enter" then the default answer, if available,
+    is returned. If no default answer is available, then the user is asked
+    again.
+    The allowed parameter may be a function that will be used to check the
+    user's answer. If any unaccepted answer is given, then the user is asked
+    again.
+    If allowed is None, then any answer is accepted.
+    If the user gives the default answer, then it is automatically accepted,
+    without any verification (even if allowed is not None).
+    """
+    result = None
+    if default is None:
+        q = f'{question} '
+    else:
+        q = f'{question} [{default}] '
+    while result is None:
+        answer = input(f'{q}')
+        if default is not None and answer in [' ', '\n', default]:
+            result = default
+        else:
+            if allowed is not None:
+                if allowed(answer):
+                    result = answer
+            else:
+                result = answer
+        if result is None:
+            print('Sorry, I didn\'t understand.')
+    return result
+
+
 def _hcenter(word, width):
     """Add spaces before and after word to get to the given width."""
     spaces = width - len(word)

@@ -74,6 +74,41 @@ def test_ask_user_choice(capsys, mocker):
     assert captured.err == 'Sorry, I didn\'t understand.\n'
 
 
+def test_ask_user(capsys):
+    with patch('builtins.input') as mock_input:
+        mock_input.return_value = 'anything'
+        answer = terminal.ask_user('Will you do it?')
+        assert answer == 'anything'
+        mock_input.assert_called_with('Will you do it? ')
+
+        mock_input.return_value = 'no'
+        answer = terminal.ask_user('Will you do it?', default='YES')
+        assert answer == 'no'
+        mock_input.assert_called_with('Will you do it? [YES] ')
+
+        values = [' ', '\n', 'YES']
+        mock_input.side_effect = values
+        for _ in range(len(values)):
+            answer = terminal.ask_user('Will you do it?', default='YES')
+            assert answer == 'YES'
+            mock_input.assert_called_with('Will you do it? [YES] ')
+
+        def check(answer):
+            try:
+                int(answer)
+            except ValueError:
+                return False
+            return True
+
+        mock_input.side_effect = ['a', 18]
+        answer = terminal.ask_user('Type in an integer, please:',
+                                   allowed=check)
+        assert answer == 18
+        mock_input.assert_called_with('Type in an integer, please: ')
+        captured = capsys.readouterr()
+        assert captured.out == 'Sorry, I didn\'t understand.\n'
+
+
 def test_hcenter():
     assert terminal._hcenter('hello', 11) == '   hello   '
     assert terminal._hcenter('hello', 12) == '    hello   '

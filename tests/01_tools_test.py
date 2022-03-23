@@ -19,7 +19,10 @@
 # along with Microlib; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+from decimal import Decimal
+
 from microlib import rotate, grouper, read_text
+from microlib import fracdigits_nb, turn_to_capwords
 
 
 def test_rotate():
@@ -39,3 +42,16 @@ def test_read_text(fs):
     fs.create_file('file1.txt', contents='ABC')
     fs.create_file('file2.txt', contents='DEF')
     assert read_text('file1.txt', 'file2.txt') == 'ABC\nDEF'
+
+
+def test_fracdigits_nb():
+    assert fracdigits_nb(Decimal('1')) == 0
+    assert fracdigits_nb(Decimal('1.0')) == 1
+    assert fracdigits_nb(Decimal('1.2')) == 1
+    assert fracdigits_nb(Decimal('1.23')) == 2
+    assert fracdigits_nb(Decimal('1.236')) == 3
+
+
+def test_turn_to_capwords():
+    assert turn_to_capwords('abc_def') == 'AbcDef'
+    assert turn_to_capwords('GhI_kLm') == 'GhiKlm'

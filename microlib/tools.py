@@ -48,3 +48,11 @@ def read_text(*filenames, **kwargs):
         with open(filename, encoding=encoding) as f:
             buf.append(f.read())
     return sep.join(buf)
+
+
+def fracdigits_nb(d):
+    return max(0, -d.as_tuple().exponent)
+
+
+def turn_to_capwords(name):
+    return ''.join(x.capitalize() for x in name.split('_'))

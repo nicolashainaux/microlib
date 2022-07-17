@@ -4,18 +4,30 @@ try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
+from pathlib import Path
+from shutil import copyfile
 
-from microlib import __version__, read_text
+import toml
 
-readme = read_text('README')
+pp_path = Path(__file__).parent / 'pyproject.toml'
+meta_path = Path(__file__).parent / 'microlib/meta'
+copyfile(pp_path, meta_path / 'pyproject.toml')
+print('[setup.py] Copied pyproject.toml to microlib/meta/')
+with open(pp_path, 'r') as f:
+    pp = toml.load(f)
+
+metadata = pp['tool']['poetry']
+dep = metadata['dev-dependencies']
+excluded = ['*tests', '*.pytest_cache', '*.venv', '*.vscode',
+            '*microlib.build', '*microlib.egg-info', '*dist']
 
 setup(
-    long_description=readme,
+    long_description=Path('README.rst').read_text(),
     name='microlib',
-    version=__version__,
+    version=metadata['version'],
     python_requires='==3.*,>=3.6.0',
     author='Nicolas Hainaux',
-    author_email='nh.techn@gmail.com',
+    author_email='nh.techn@posteo.net',
     packages=['microlib'],
     package_dir={"": "."},
     package_data={"microlib": ["data/*.json", "data/*.toml", "meta/*.toml"]},

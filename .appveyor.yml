@@ -2,24 +2,28 @@ version: build{build}
 
 max_jobs: 1
 
-# Currently tested python versions: 3.7, 3.8 and 3.9
+# Currently tested python versions: 3.7, 3.8, 3.9 and 3.10
 environment:
   matrix:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      PYTHON38: "C:\\Python38-x64\\python.exe"
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      PYTHON39: "C:\\Python39-x64\\python.exe"
 
 install:
   - cmd: set PYTHONIOENCODING=utf-8
-  - cmd: set PY_PYTHON=3.8
-  - cmd: set PATH=C:\\Python38-x64\\;C:\\Python38-x64\\Scripts;%USERPROFILE%\\.poetry\\bin;%PATH%
-  - cmd: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | %PYTHON38%
+  - cmd: set PY_PYTHON=3.9
+  - cmd: set PATH=C:\\Python39-x64\\;C:\\Python39-x64\\Scripts;%USERPROFILE%\\.poetry\\bin;%PATH%
+  - cmd: curl -sSL https://install.python-poetry.org | %PYTHON39%
   - cmd: python --version
   - cmd: python -c "import sys; print(sys.platform); print(sys.version_info)"
-  - cmd: C:\\Python39-x64\\python.exe -m venv py39
+  - cmd: C:\\Python310-x64\\python.exe -m venv py310
+  - cmd: .\py310\Scripts\activate.bat
+  - cmd: poetry install
+  - cmd: deactivate
+  - cmd: python -m venv py39
   - cmd: .\py39\Scripts\activate.bat
   - cmd: poetry install
   - cmd: deactivate
-  - cmd: python -m venv py38
+  - cmd: C:\\Python38-x64\\python.exe -m venv py38
   - cmd: .\py38\Scripts\activate.bat
   - cmd: poetry install
   - cmd: deactivate
@@ -31,6 +35,9 @@ install:
 build: off
 
 test_script:
+  - cmd: .\py310\Scripts\activate.bat
+  - cmd: pytest
+  - cmd: deactivate
   - cmd: .\py39\Scripts\activate.bat
   - cmd: pytest
   - cmd: deactivate

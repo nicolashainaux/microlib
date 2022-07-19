@@ -21,6 +21,8 @@
 
 from decimal import Decimal
 
+import pytest
+
 from microlib import rotate, grouper, read_text
 from microlib import fracdigits_nb, turn_to_capwords
 
@@ -41,7 +43,8 @@ def test_grouper():
 def test_read_text(fs):
     fs.create_file('file1.txt', contents='ABC')
     fs.create_file('file2.txt', contents='DEF')
-    assert read_text('file1.txt', 'file2.txt') == 'ABC\nDEF'
+    with pytest.warns(DeprecationWarning):
+        assert read_text('file1.txt', 'file2.txt') == 'ABC\nDEF'
 
 
 def test_fracdigits_nb():

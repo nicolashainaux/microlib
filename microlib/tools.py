@@ -21,6 +21,8 @@
 
 from itertools import zip_longest
 
+from .deprecation import Deprecated
+
 
 def rotate(L, n=1):
     """Rotate list L of n places, to the right if n > 0; else to the left."""
@@ -35,6 +37,11 @@ def grouper(iterable, n, padvalue=None):
     return zip_longest(*[iter(iterable)] * n, fillvalue=padvalue)
 
 
+@Deprecated(use_instead='pathlib.Path.read_text',
+            extra_msg='pathlib.Path.read_text cannot concatenate, but it is '
+            'easy to achieve via \'\\n\'.join([...]).',
+            ref_url='https://docs.python.org/3/library/pathlib.html'
+            '#pathlib.Path.read_text')
 def read_text(*filenames, **kwargs):
     """
     Read and concatenate text from provided files.

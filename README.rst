@@ -17,7 +17,6 @@ Microlib contains some useful functions or classes:
 - terminal.tabulate() is a very simple function to display tabulated data in the terminal,
 - terminal.echo_info() echo_warning() and echo_error() display info, warning and error messages with some color.
 - rotate() and grouper() help to handle iterators.
-- read_text() reads text files and concatenates their contents.
 - database offers a ContextManager for sqlite3 database, an Operator and a Ts_Operator classes to provide shortcuts for common sqlite3 commands.
 - a Deprecated class, that provides a decorator to deprecate functions (emit a warning when it is called).
 

@@ -28,8 +28,8 @@ from .tools import rotate, grouper, read_text, fracdigits_nb, turn_to_capwords
 from .configfile import StandardConfigFile
 from .deprecation import Deprecated
 
-with open(Path(__file__).parent / 'meta/pyproject.toml', 'r') as f:
-    __version__ = toml.load(f)['tool']['poetry']['version']
+pp = Path(__file__).parent.parent / 'pyproject.toml'
+__version__ = toml.loads(pp.read_text())['tool']['poetry']['version']
 
 __all__ = [terminal, XDict, rotate, grouper, read_text, StandardConfigFile,
            database, fracdigits_nb, turn_to_capwords, Deprecated]

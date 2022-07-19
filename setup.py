@@ -5,16 +5,10 @@ try:
 except ImportError:
     from distutils.core import setup
 from pathlib import Path
-from shutil import copyfile
 
 import toml
 
-pp_path = Path(__file__).parent / 'pyproject.toml'
-meta_path = Path(__file__).parent / 'microlib/meta'
-copyfile(pp_path, meta_path / 'pyproject.toml')
-print('[setup.py] Copied pyproject.toml to microlib/meta/')
-with open(pp_path, 'r') as f:
-    pp = toml.load(f)
+pp = toml.loads((Path(__file__).parent / 'pyproject.toml').read_text())
 
 metadata = pp['tool']['poetry']
 dep = metadata['dev-dependencies']

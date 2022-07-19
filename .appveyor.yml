@@ -2,7 +2,7 @@ version: build{build}
 
 max_jobs: 1
 
-# Currently tested python versions: 3.6, 3.7 and 3.8
+# Currently tested python versions: 3.7, 3.8 and 3.9
 environment:
   matrix:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -15,6 +15,10 @@ install:
   - cmd: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | %PYTHON38%
   - cmd: python --version
   - cmd: python -c "import sys; print(sys.platform); print(sys.version_info)"
+  - cmd: C:\\Python39-x64\\python.exe -m venv py39
+  - cmd: .\py39\Scripts\activate.bat
+  - cmd: poetry install
+  - cmd: deactivate
   - cmd: python -m venv py38
   - cmd: .\py38\Scripts\activate.bat
   - cmd: poetry install
@@ -23,28 +27,24 @@ install:
   - cmd: .\py37\Scripts\activate.bat
   - cmd: poetry install
   - cmd: deactivate
-  - cmd: C:\\Python36-x64\\python.exe -m venv py36
-  - cmd: .\py36\Scripts\activate.bat
-  - cmd: poetry install
-  - cmd: deactivate
 
 build: off
 
 test_script:
+  - cmd: .\py39\Scripts\activate.bat
+  - cmd: pytest
+  - cmd: deactivate
   - cmd: .\py38\Scripts\activate.bat
   - cmd: pytest
   - cmd: deactivate
   - cmd: .\py37\Scripts\activate.bat
   - cmd: pytest
   - cmd: deactivate
-  - cmd: .\py36\Scripts\activate.bat
-  - cmd: pytest
-  - cmd: deactivate
 
 notifications:
 - provider: Email
   to:
-  - nh.techn@gmail.com
+  - nh.techn@posteo.net
   on_build_success: false
   on_build_failure: false
   on_build_status_changed: true

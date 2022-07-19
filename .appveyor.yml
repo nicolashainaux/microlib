@@ -11,7 +11,7 @@ environment:
 install:
   - cmd: set PYTHONIOENCODING=utf-8
   - cmd: set PY_PYTHON=3.9
-  - cmd: set PATH=C:\\Python39-x64\\;C:\\Python39-x64\\Scripts;%USERPROFILE%\\.poetry\\bin;%PATH%
+  - cmd: set PATH=C:\\Python39-x64\\;C:\\Python39-x64\\Scripts;C:\\Users\\appveyor\\AppData\\Roaming\\Python\\Scripts;%PATH%
   - cmd: curl -sSL https://install.python-poetry.org | %PYTHON39%
   - cmd: python --version
   - cmd: python -c "import sys; print(sys.platform); print(sys.version_info)"

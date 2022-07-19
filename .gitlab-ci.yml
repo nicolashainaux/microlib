@@ -40,4 +40,5 @@ build:jammy:
     - pip3 install coveralls
     - curl -sSL https://install.python-poetry.org | python3 -
     - $POETRY install
+    - $POETRY update pytest
     - $POETRY run pytest -vv

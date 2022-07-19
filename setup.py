@@ -25,16 +25,18 @@ setup(
     long_description=Path('README.rst').read_text(),
     name='microlib',
     version=metadata['version'],
-    python_requires='==3.*,>=3.6.0',
+    python_requires='==3.*,>=3.7.0',
     author='Nicolas Hainaux',
     author_email='nh.techn@posteo.net',
     packages=['microlib'],
     package_dir={"": "."},
     package_data={"microlib": ["data/*.json", "data/*.toml", "meta/*.toml"]},
+    classifiers=metadata['classifiers'],
     install_requires=[
         'blessed==1.*,>=1.18.1', 'click==8.*,>=8.0.1',
         'importlib-metadata==3.*,>=3.1.0; '
-        'python_version == "3.6.*" or python_version == "3.7.*"',
+        'python_version == "3.7.*" or python_version == "3.8.*"'
+        ' or python_version == "3.9.*" or python_version == "3.10.*"',
         'toml==0.*,>=0.10.2'
     ],
     extras_require={

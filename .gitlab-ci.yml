@@ -23,22 +23,21 @@ build:focal:
   script:
     - apt install python-is-python3
     - pip3 install coveralls
-    - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
+    - curl -sSL https://install.python-poetry.org | python3 -
     - $POETRY install
     - $POETRY run coverage run --source=microlib -m pytest -vv
     - coveralls
 
-build:bionic:
+build:jammy:
   stage: build
-  image: ubuntu:bionic
-  variables:
-    PYTHONIOENCODING: utf-8
+  image: ubuntu:jammy
   cache:
-    key: bionic-build
+    key: jammy-build
     paths:
       - .cache/
   script:
-    - alias python="python3.6"
-    - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3 -
+    - apt install python-is-python3
+    - pip3 install coveralls
+    - curl -sSL https://install.python-poetry.org | python3 -
     - $POETRY install
     - $POETRY run pytest -vv

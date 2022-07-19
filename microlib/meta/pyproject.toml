@@ -17,7 +17,6 @@ classifiers = ['Development Status :: 5 - Production/Stable',
                'Operating System :: POSIX :: Linux',
                'Operating System :: POSIX :: BSD :: FreeBSD',
                'Programming Language :: Python',
-               'Programming Language :: Python :: 3.6',
                'Programming Language :: Python :: 3.7',
                'Programming Language :: Python :: 3.8',
                'Programming Language :: Python :: 3.9',
@@ -26,8 +25,10 @@ include = ['*.rst', '*.toml', '*.po', '*.mo', '*.pot', '*.json', '*.svg',
            '*.xml', '*.desktop']
 
 [tool.poetry.dependencies]
-python = "^3.6"
-importlib-metadata = { version = "^3.1", python = "3.6.* || 3.7.*" }
+python = "^3.7"
+# importlib-metada below is required for click, for compatibility with
+# python < 3.8; once their support is dropped, it may be removed
+importlib-metadata = { version = "^3.1", python = "3.7.*" }
 toml = "^0.10.2"
 click = "^8.0.1"
 blessed = "^1.18.1"

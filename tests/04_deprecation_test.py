@@ -36,7 +36,7 @@ def f2(*args):
     pass
 
 
-@Deprecated(use_instead='f4', extra_msg=' Some more info.',
+@Deprecated(use_instead='f4', extra_msg='Some more info.',
             ref_url='https://readthedoc.com')
 def f3(*args):
     pass
@@ -75,7 +75,7 @@ def test_calls_to_deprecated_functions():
 def test_redirect_call_to_removed_function():
     Deprecated.add(AnyObject, AnyObject.new_func, 'old_func')
     Deprecated.add(AnyObject, AnyObject.new_func, 'old_func2',
-                   removal_version='3.0', extra_msg=' Some more info.',
+                   removal_version='3.0', extra_msg='Some more info.',
                    ref_url='https://readthedoc.com')
     obj = AnyObject()
 

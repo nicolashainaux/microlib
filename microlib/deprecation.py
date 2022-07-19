@@ -66,7 +66,7 @@ class Deprecated(object):
                     if self.use_instead:
                         message += f' Use {self.use_instead} instead.'
                     if self.extra_msg:
-                        message += self.extra_msg
+                        message += ' ' + self.extra_msg
                     if self.ref_url:
                         message += f' See {self.ref_url}'
 

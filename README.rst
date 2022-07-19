@@ -1,5 +1,11 @@
 |coveralls|
 
+License
+=======
+Microlib is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or any later version. See LICENSE file.
+
+Microlib also includes third party open source software components: the Deprecated class. It has its own license. Please see ./microlib/deprecation.py
+
 Overview
 ========
 
@@ -13,6 +19,7 @@ Microlib contains some useful functions or classes:
 - rotate() and grouper() help to handle iterators.
 - read_text() reads text files and concatenates their contents.
 - database offers a ContextManager for sqlite3 database, an Operator and a Ts_Operator classes to provide shortcuts for common sqlite3 commands.
+- a Deprecated class, that provides a decorator to deprecate functions (emit a warning when it is called).
 
 `Source code <https://gitlab.com/nicolas.hainaux/microlib>`__
 

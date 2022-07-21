@@ -1,3 +1,10 @@
+python3-microlib (1.9.1-0ubuntu1~jammy) jammy; urgency=low
+
+  * Release version 1.9.1
+
+ -- Nicolas Hainaux <nh.techn@posteo.net>  Thu, 21 Jul 2022 19:00:34 +0200
+
+
 python3-microlib (1.9.1-0ubuntu1~focal) focal; urgency=low
 
   * Release version 1.9.1

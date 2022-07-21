@@ -28,7 +28,7 @@ from .tools import rotate, grouper, read_text, fracdigits_nb, turn_to_capwords
 from .configfile import StandardConfigFile
 from .deprecation import Deprecated
 
-pp = Path(__file__).parent.parent / 'pyproject.toml'
+pp = Path(__file__).parent / 'data/pyproject.toml'
 __version__ = toml.loads(pp.read_text())['tool']['poetry']['version']
 
 __all__ = [terminal, XDict, rotate, grouper, read_text, StandardConfigFile,

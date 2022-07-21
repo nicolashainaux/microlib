@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from shutil import copyfile
+
 try:
     from setuptools import setup
 except ImportError:
@@ -8,7 +10,11 @@ from pathlib import Path
 
 import toml
 
-pp = toml.loads((Path(__file__).parent / 'pyproject.toml').read_text())
+pp_path = Path(__file__).parent / 'pyproject.toml'
+data_path = Path(__file__).parent / 'microlib/data'
+copyfile(pp_path, data_path / 'pyproject.toml')
+print('[setup.py] Copied pyproject.toml to microlib/data/')
+pp = toml.loads(pp_path.read_text())
 
 metadata = pp['tool']['poetry']
 dep = metadata['dev-dependencies']

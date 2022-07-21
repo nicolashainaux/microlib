@@ -9,9 +9,13 @@ task:
   install_script:
     - mkdir -p $HOME
     - pkg upgrade -y
-    - pkg install -y curl python3 py38-pip py38-virtualenv py38-docutils py38-sqlite3 py38-pytest py38-coverage py38-pytest-mock py38-toml py38-click py38-blessed py38-intspan
-    - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python3.8 -
-    - pip-3.8 install pyfakefs
+    - MAJ=`python -c "import sys;print(sys.version_info.major)"`
+    - MIN=`python -c "import sys;print(sys.version_info.minor)"`
+    - PY="py$MAJ$MIN"  # py39
+    - PYV="$MAJ.$MIN"  # 3.9
+    - pkg install -y curl python3 "$PY"-pip "$PY"-virtualenv "$PY"-docutils "$PY"-sqlite3 "$PY"-pytest "$PY"-coverage "$PY"-pytest-mock "$PY"-toml "$PY"-click "$PY"-blessed "$PY"-intspan
+    - curl -sSL https://install.python-poetry.org | python"$PYV -
+    - pip-"$PYV install pyfakefs
     - pwd
     - echo $PATH
     - /home/username/.local/bin/poetry --version

@@ -13,9 +13,10 @@ task:
     - MIN=`python -c "import sys;print(sys.version_info.minor)"`
     - PY="py$MAJ$MIN"  # py39
     - PYV="$MAJ.$MIN"  # 3.9
+    - echo "$PY; $PYV"
     - pkg install -y curl python3 "$PY"-pip "$PY"-virtualenv "$PY"-docutils "$PY"-sqlite3 "$PY"-pytest "$PY"-coverage "$PY"-pytest-mock "$PY"-toml "$PY"-click "$PY"-blessed "$PY"-intspan
-    - curl -sSL https://install.python-poetry.org | python"$PYV -
-    - pip-"$PYV install pyfakefs
+    - curl -sSL https://install.python-poetry.org | python"$PYV" -
+    - pip-"$PYV" install pyfakefs
     - pwd
     - echo $PATH
     - /home/username/.local/bin/poetry --version

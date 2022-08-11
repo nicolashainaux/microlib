@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "microlib"
-version = "1.9.1"
+version = "1.9.2"
 description = "Collection of various useful tools."
 license = 'GPL-3.0-or-later'
 authors = ["Nicolas Hainaux <nh.techn@posteo.net>"]
@@ -28,7 +28,7 @@ include = ['*.rst', '*.toml', '*.po', '*.mo', '*.pot', '*.json', '*.svg',
 python = "^3.7"
 # importlib-metada below is required for click, for compatibility with
 # python < 3.8; once their support is dropped, it may be removed
-importlib-metadata = { version = "^3.1", python = "3.7.*" }
+importlib-metadata = { version = "^3.1 || ^4.0", python = "3.7.*" }
 toml = "^0.10.2"
 click = "^8.0.1"
 blessed = "^1.18.1"

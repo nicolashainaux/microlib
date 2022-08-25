@@ -1,3 +1,10 @@
+python3-microlib (1.9.2-0ubuntu1~jammy) jammy; urgency=low
+
+  * Patch release
+
+ -- Nicolas Hainaux <nh.techn@gmail.com>  Thu, 25 Aug 2022 12:06:04 +0200
+
+
 python3-microlib (1.9.2-0ubuntu1~focal) focal; urgency=low
 
   * Patch release

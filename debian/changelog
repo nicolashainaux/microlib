@@ -1,3 +1,10 @@
+python3-microlib (1.9.3-0debian~focal) focal; urgency=low
+
+  * Patch release
+
+ -- Nicolas Hainaux <nh.techn@gmail.com>  Mon, 07 Aug 2023 21:27:27 +0200
+
+
 python3-microlib (1.9.3-0ubuntu~focal) focal; urgency=low
 
   * Patch release

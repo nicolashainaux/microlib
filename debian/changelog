@@ -1,3 +1,10 @@
+python3-microlib (1.9.3-0ubuntu~jammy) jammy; urgency=low
+
+  * Patch release
+
+ -- Nicolas Hainaux <nh.techn@gmail.com>  Mon, 07 Aug 2023 20:57:55 +0200
+
+
 python3-microlib (1.9.2-0debian1~jammy) jammy; urgency=low
 
   * Patch release

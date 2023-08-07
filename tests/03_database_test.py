@@ -45,7 +45,7 @@ def test_ContextManager():
     # (not only committed)
     with pytest.raises(sqlite3.ProgrammingError) as excinfo:
         cursor.execute('SELECT 1 FROM test1;')
-    assert str(excinfo.value) == 'Cannot operate on a closed database.'
+    assert str(excinfo.value) == 'Cannot operate on a closed cursor.'
 
 
 def test_list_tables():
@@ -221,9 +221,6 @@ def test_copy_table():
         assert db.table_exists('table4')
         assert db.get_cols('table1') == ['col1', 'col2']
         assert db.get_cols('table4') == ['col1', 'col2']
-        import sys
-        sys.stderr.write(f"table1=\n{db.table_to_text('table1')}\n")
-        sys.stderr.write(f"table4=\n{db.table_to_text('table4')}\n")
         assert db.table_to_text('table1') == db.table_to_text('table4')
         with pytest.raises(ValueError) as excinfo:
             db.copy_table('table4', 'table2')

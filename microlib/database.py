@@ -72,6 +72,7 @@ class ContextManager:
             self.conn.execute('ROLLBACK TO SAVEPOINT starttest;')
         else:
             self.conn.commit()
+        self.cursor.close()
         self.conn.close()
 
 
@@ -244,19 +245,20 @@ class Operator:
 
     def insert_rows(self, table_name, rows, col_titles=None):
         """Insert rows to the table."""
-        if col_titles is None:
-            col_titles = self.get_cols(table_name)
-        for row in rows:
-            if len(col_titles) != len(row):
-                data = [f"'{item}'" for item in row]
-                data = ', '.join(data)
-                raise ValueError(f'In database, {data} requires {len(row)} '
-                                 f'columns, but table {table_name} has only '
-                                 f'{len(col_titles)} columns.')
-        titles, qmarks = self._titles_and_qmarks(col_titles)
-        cmd = f'INSERT INTO {table_name}({titles}) VALUES({qmarks})'
-        content = self._content(rows)
-        self.cursor.executemany(cmd, content)
+        if rows:
+            if col_titles is None:
+                col_titles = self.get_cols(table_name)
+            for row in rows:
+                if len(col_titles) != len(row):
+                    data = [f"'{item}'" for item in row]
+                    data = ', '.join(data)
+                    raise ValueError(f'In database, {data} requires {len(row)}'
+                                     f' columns, but table {table_name} has '
+                                     f'only {len(col_titles)} columns.')
+            titles, qmarks = self._titles_and_qmarks(col_titles)
+            cmd = f'INSERT INTO {table_name}({titles}) VALUES({qmarks})'
+            content = self._content(rows)
+            self.cursor.executemany(cmd, content)
 
     def merge_tables(self, name1, name2):
         """Insert rows of table name1 table into name2."""

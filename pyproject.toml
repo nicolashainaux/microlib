@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "microlib"
-version = "1.9.2"
+version = "1.9.3"
 description = "Collection of various useful tools."
 license = 'GPL-3.0-or-later'
 authors = ["Nicolas Hainaux <nh.techn@posteo.net>"]
